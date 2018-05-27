@@ -24,4 +24,13 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public Request getRequestById(int id) { return requestDao.findRequestById(id); }
+
+    @Override
+    public List<Request> getAnalyzedRequests() { return requestDao.findAnalyzedRequests(); }
+
+    @Override
+    public List<Request> getStaffedRequests() { return requestDao.findStaffedRequests(); }
+
+    @Override
+    public List<Request> getConfirmedRequests() { return requestDao.findConfirmedRequests(); }
 }

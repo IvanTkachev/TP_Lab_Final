@@ -11,5 +11,11 @@ public interface RequestDao {
 
     List<Request> findCreatedRequests();
 
+    List<Request> findAnalyzedRequests();
+
+    List<Request> findStaffedRequests();
+
+    List<Request> findConfirmedRequests();
+
     Request findRequestById(int id);
 }

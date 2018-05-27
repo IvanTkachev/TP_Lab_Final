@@ -11,5 +11,11 @@ public interface RequestService {
 
     List<Request> getCreatedRequests();
 
+    List<Request> getAnalyzedRequests();
+
+    List<Request> getStaffedRequests();
+
+    List<Request> getConfirmedRequests();
+
     Request getRequestById(int id);
 }

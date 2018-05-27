@@ -98,31 +98,17 @@ public class RequestDaoImpl extends DAO implements RequestDao{
 
     @Override
     public List<Request> findCreatedRequests() {
-        Connection connection = poolInst.getConnection();
-        List<Request> requests = new ArrayList<>();
-        try{
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql.getProperty(SqlService.SQL_GET_CREATED_REQUEST));
-            while (resultSet.next()){
-                Request request = new Request();
-                request.setId(resultSet.getInt(1));
-                request.setName(resultSet.getString(2));
-                request.setAmount(resultSet.getInt(6));
-                if (resultSet.getInt(5) == 0){
-                    request.setType(UserType.PHYSICAL);
-                }else {
-                    request.setType(UserType.LEGAL);
-                }
-                requests.add(request);
-            }
-            resultSet.close();
-            statement.close();
-        }catch (SQLException exc){
-            exc.printStackTrace();
-        }finally {
-            poolInst.footConnection(connection);
-        }
-        return requests;
+        return findRequestsByStatus(1);
+    }
+
+    @Override
+    public List<Request> findStaffedRequests() {
+        return findRequestsByStatus(3);
+    }
+
+    @Override
+    public List<Request> findConfirmedRequests() {
+        return findRequestsByStatus(4);
     }
 
     @Override
@@ -158,5 +144,39 @@ public class RequestDaoImpl extends DAO implements RequestDao{
             poolInst.footConnection(connection);
         }
         return request;
+    }
+
+    @Override
+    public List<Request> findAnalyzedRequests() {
+        return findRequestsByStatus(2);
+    }
+
+    private List<Request> findRequestsByStatus(int status){
+        Connection connection = poolInst.getConnection();
+        List<Request> requests = new ArrayList<>();
+        try{
+            PreparedStatement statement = connection.prepareStatement(SqlService.SQL_GET_REQUEST_BY_STATUS);
+            statement.setInt(1, status);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                Request request = new Request();
+                request.setId(resultSet.getInt(1));
+                request.setName(resultSet.getString(2));
+                request.setAmount(resultSet.getInt(6));
+                if (resultSet.getInt(5) == 0){
+                    request.setType(UserType.PHYSICAL);
+                }else {
+                    request.setType(UserType.LEGAL);
+                }
+                requests.add(request);
+            }
+            resultSet.close();
+            statement.close();
+        }catch (SQLException exc){
+            exc.printStackTrace();
+        }finally {
+            poolInst.footConnection(connection);
+        }
+        return requests;
     }
 }
