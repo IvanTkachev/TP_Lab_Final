@@ -4,6 +4,7 @@ import com.credit.system.javaFX.view.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -17,11 +18,12 @@ import java.io.IOException;
 
 public class ClerkController {
     public Button newRequestButton;
+    public Button logoutButton;
+    private Stage dialogStage;
 
     @FXML
     private void initialize() {
         try {
-//            userDao = new UserDaoImpl();
             Context context = new InitialContext();
         }catch (Exception e){
             e.printStackTrace();
@@ -46,8 +48,25 @@ public class ClerkController {
 
         } catch (IOException e) {
             e.printStackTrace();
-
         }
+    }
+
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
+
+    public void logoutAction(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setRoot(getClass().getResource("login.fxml"));
+            loader.setLocation(Main.class.getResource("login.fxml"));
+            Main.rootStage.setScene(new Scene(loader.load(), 700, 500));
+            Main.rootStage.setTitle("Login page");
+            Main.rootStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void errorMessage(String message) {

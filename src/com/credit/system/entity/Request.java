@@ -25,6 +25,14 @@ public class Request {
         this.attachments = attachments;
     }
 
+    public Request(int id, String name, UserType type, int amount, List<String> attachments) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.amount = amount;
+        this.attachments = attachments;
+    }
+
     public int getId() {
         return id;
     }

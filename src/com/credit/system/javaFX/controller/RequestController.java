@@ -1,5 +1,9 @@
 package com.credit.system.javaFX.controller;
 
+import com.credit.system.entity.Request;
+import com.credit.system.entity.UserType;
+import com.credit.system.service.RequestService;
+import com.credit.system.service.impl.RequestServiceImpl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -22,13 +26,13 @@ public class RequestController {
     public TextField nameFiled;
     public Slider costField;
     public ChoiceBox clientType;
-    private String errorMessage;
+    private RequestService requestService;
 
     @FXML
     private void initialize() {
         try {
-//            userDao = new UserDaoImpl();
             Context context = new InitialContext();
+            requestService = new RequestServiceImpl();
             costField.valueProperty().addListener(new ChangeListener<Number>() {
                 @Override
                 public void changed(ObservableValue<? extends Number> observable,
@@ -39,7 +43,7 @@ public class RequestController {
             });
 
             clientType.setItems(FXCollections.observableArrayList(
-                    "Legal entity", "Private person ")
+                    "Legal entity", "Physical person ")
             );
             clientType.setValue("Legal entity");
 
@@ -49,12 +53,23 @@ public class RequestController {
     }
 
     public void newRequestAction(ActionEvent actionEvent) {
-     if("".equals(nameFiled.getText())){
-         errorMessage("Name is empty. Try again please");
-     }
-     else {
-
-     }
+        if("".equals(nameFiled.getText())){
+            errorMessage("Name is empty. Try again please");
+        }
+        else {
+            dialogStage.close();
+            String result = "";
+            if("Legal entity".equals(clientType.getValue().toString())){
+                result = "LEGAL";
+            }
+            else result = "PHYSICAL";
+            requestService.create(
+                    new Request(0, nameFiled.getText(), UserType.valueOf(result), (int)costField.getValue(), null)
+            );
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Request add to analyse");
+            alert.show();
+        }
     }
 
     public void setDialogStage(Stage dialogStage) {

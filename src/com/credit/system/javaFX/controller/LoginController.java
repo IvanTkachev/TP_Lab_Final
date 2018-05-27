@@ -1,16 +1,12 @@
 package com.credit.system.javaFX.controller;
 
-import com.credit.system.dao.UserDao;
-import com.credit.system.dao.impl.UserDaoImpl;
 import com.credit.system.entity.User;
 import com.credit.system.javaFX.view.Main;
-import com.credit.system.javaFX.view.MainController;
 import com.credit.system.service.UserService;
 import com.credit.system.service.impl.UserServiceImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -47,7 +43,8 @@ public class LoginController {
         try {
             User user = userService.getUser(usernameFiled.getText(), passwordField.getText());
             if(user != null){
-                dialogStage.close();
+                if(dialogStage!= null)
+                    dialogStage.close();
                 FXMLLoader loader = new FXMLLoader();
                 switch (user.getRole().getName()){
                     case "Clerk":
@@ -59,8 +56,8 @@ public class LoginController {
                         loader.setLocation(Main.class.getResource("mainForm.fxml"));
                         break;
                     case "Referer":
-                        loader.setRoot(getClass().getResource("mainForm.fxml"));
-                        loader.setLocation(Main.class.getResource("mainForm.fxml"));
+                        loader.setRoot(getClass().getResource("refererForm.fxml"));
+                        loader.setLocation(Main.class.getResource("refererForm.fxml"));
                         break;
                     case "Servant":
                         loader.setRoot(getClass().getResource("mainForm.fxml"));
