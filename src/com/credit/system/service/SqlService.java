@@ -36,6 +36,8 @@ public class SqlService {
 
     public static final String SQL_GET_CONFIRMED_REQUEST = "SQL_GET_CONFIRMED_REQUEST";
 
+    public static final String SQL_DELETE_REQUEST = "SQL_DELETE_REQUEST";
+
     public static final String SQL_GET_REQUEST_BY_ID = "SQL_GET_REQUEST_BY_ID";
 
     public static final String SQL_GET_ATTACHMENT_BY_REQUEST_ID = "SQL_GET_ATTACHMENT_BY_REQUEST_ID";

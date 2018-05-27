@@ -18,4 +18,6 @@ public interface RequestService {
     List<Request> getConfirmedRequests();
 
     Request getRequestById(int id);
+
+    void delete(int id);
 }

@@ -178,4 +178,19 @@ public class RequestDaoImpl extends DAO implements RequestDao{
         }
         return requests;
     }
+
+    @Override
+    public void delete(int id) {
+        Connection connection = poolInst.getConnection();
+        try{
+            PreparedStatement statement = connection.prepareStatement(sql.getProperty(SqlService.SQL_DELETE_REQUEST));
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            statement.close();
+        }catch (SQLException exc){
+            exc.printStackTrace();
+        }finally {
+            poolInst.footConnection(connection);
+        }
+    }
 }

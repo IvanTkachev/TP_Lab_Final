@@ -18,4 +18,6 @@ public interface RequestDao {
     List<Request> findConfirmedRequests();
 
     Request findRequestById(int id);
+
+    void delete(int id);
 }

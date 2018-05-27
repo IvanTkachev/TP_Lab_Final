@@ -33,4 +33,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<Request> getConfirmedRequests() { return requestDao.findConfirmedRequests(); }
+
+    @Override
+    public void delete(int id) { requestDao.delete(id); }
 }
