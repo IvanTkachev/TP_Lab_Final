@@ -5,6 +5,8 @@ import com.credit.system.dao.impl.RequestDaoImpl;
 import com.credit.system.entity.Request;
 import com.credit.system.service.RequestService;
 
+import java.util.List;
+
 public class RequestServiceImpl implements RequestService {
     private RequestDao requestDao = new RequestDaoImpl();
     @Override
@@ -16,4 +18,7 @@ public class RequestServiceImpl implements RequestService {
     public void updateStatus(Request request) {
         requestDao.updateStatus(request);
     }
+
+    @Override
+    public List<Request> getCreatedRequests() { return requestDao.findCreatedRequests(); }
 }

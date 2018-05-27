@@ -38,9 +38,11 @@ public class RequestDaoImpl extends DAO implements RequestDao{
             statement.close();
             statement = connection.prepareStatement(sql.getProperty(SqlService.SQL_INSERT_ATTACHMENT));
             statement.setInt(1, id);
-            for (String str : request.getAttachments()){
-                statement.setString(2, str);
-                statement.executeUpdate();
+            if (request.getAttachments() != null) {
+                for (String str : request.getAttachments()) {
+                    statement.setString(2, str);
+                    statement.executeUpdate();
+                }
             }
             statement.close();
         } catch (SQLException e) {
@@ -96,5 +98,32 @@ public class RequestDaoImpl extends DAO implements RequestDao{
             poolInst.footConnection(connection);
         }
         return requests;
+    }
+
+    @Override
+    public Request findRequestById(int id) {
+        Connection connection = poolInst.getConnection();
+        Request request = new Request();
+        try{
+            PreparedStatement statement = connection.prepareStatement(sql.getProperty(SqlService.SQL_GET_REQUEST_BY_ID));
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            request.setId(id);
+            request.setName(resultSet.getString(2));
+            if (resultSet.getInt(3) == 0){
+                request.setType(UserType.PHYSICAL);
+            }else {
+                request.setType(UserType.LEGAL);
+            }
+            request.setAmount(resultSet.getInt(4));
+            resultSet.close();
+            statement.close();
+        }catch (SQLException exc){
+            exc.printStackTrace();
+        }finally {
+            poolInst.footConnection(connection);
+        }
+        return request;
     }
 }

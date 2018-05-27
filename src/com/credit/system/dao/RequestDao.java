@@ -10,4 +10,6 @@ public interface RequestDao {
     void updateStatus(Request request);
 
     List<Request> findCreatedRequests();
+
+    Request findRequestById(int id);
 }

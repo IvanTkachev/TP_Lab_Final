@@ -30,6 +30,8 @@ public class SqlService {
 
     public static final String SQL_GET_CREATED_REQUEST = "SQL_GET_CREATED_REQUEST";
 
+    public static final String SQL_GET_REQUEST_BY_ID = "SQL_GET_REQUEST_BY_ID";
+
 
     private SqlService() {
     }
