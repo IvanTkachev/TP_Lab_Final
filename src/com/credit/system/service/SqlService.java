@@ -32,6 +32,8 @@ public class SqlService {
 
     public static final String SQL_GET_REQUEST_BY_ID = "SQL_GET_REQUEST_BY_ID";
 
+    public static final String SQL_GET_ATTACHMENT_BY_REQUEST_ID = "SQL_GET_ATTACHMENT_BY_REQUEST_ID";
+
 
     private SqlService() {
     }

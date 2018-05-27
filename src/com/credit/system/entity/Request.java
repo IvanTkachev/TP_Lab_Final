@@ -1,5 +1,6 @@
 package com.credit.system.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,6 +13,7 @@ public class Request {
     private List<String> attachments;
 
     public Request() {
+        attachments = new ArrayList<>();
     }
 
     public Request(int id, String name, UserType type, int amount, RequestType requestType, List<String> attachments) {

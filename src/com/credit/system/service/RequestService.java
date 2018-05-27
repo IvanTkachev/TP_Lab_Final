@@ -10,4 +10,6 @@ public interface RequestService {
     void updateStatus(Request request);
 
     List<Request> getCreatedRequests();
+
+    Request getRequestById(int id);
 }
