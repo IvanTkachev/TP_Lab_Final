@@ -15,8 +15,8 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void updateStatus(Request request) {
-        requestDao.updateStatus(request);
+    public void update(Request request) {
+        requestDao.update(request);
     }
 
     @Override
