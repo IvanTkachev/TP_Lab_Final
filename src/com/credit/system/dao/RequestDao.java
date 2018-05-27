@@ -4,4 +4,6 @@ import com.credit.system.entity.Request;
 
 public interface RequestDao {
     int create(Request request);
+
+    void updateStatus(Request request);
 }

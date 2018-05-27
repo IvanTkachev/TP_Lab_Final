@@ -8,16 +8,18 @@ public class Request {
     private String name;
     private UserType type;
     private int amount;
+    private RequestType requestType;
     private List<String> attachments;
 
     public Request() {
     }
 
-    public Request(int id, String name, UserType type, int amount, List<String> attachments) {
+    public Request(int id, String name, UserType type, int amount, RequestType requestType, List<String> attachments) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.amount = amount;
+        this.requestType = requestType;
         this.attachments = attachments;
     }
 
@@ -53,6 +55,14 @@ public class Request {
         this.amount = amount;
     }
 
+    public RequestType getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(RequestType requestType) {
+        this.requestType = requestType;
+    }
+
     public List<String> getAttachments() {
         return attachments;
     }
@@ -70,14 +80,13 @@ public class Request {
                 amount == request.amount &&
                 Objects.equals(name, request.name) &&
                 type == request.type &&
+                Objects.equals(requestType, request.requestType) &&
                 Objects.equals(attachments, request.attachments);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, type, amount, attachments);
+        return Objects.hash(id, name, type, amount, requestType, attachments);
     }
-
-
 }

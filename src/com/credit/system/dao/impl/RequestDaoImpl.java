@@ -51,4 +51,22 @@ public class RequestDaoImpl extends DAO implements RequestDao{
         }
         return id;
     }
+
+    @Override
+    public void updateStatus(Request request) {
+        Connection connection = poolInst.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql.
+                    getProperty(SqlService.SQL_UPDATE_REQUEST_STATUS));
+            statement.setInt(1, request.getRequestType().getId());
+            statement.setInt(2, request.getId());
+            statement.executeUpdate();
+
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            poolInst.footConnection(connection);
+        }
+    }
 }
