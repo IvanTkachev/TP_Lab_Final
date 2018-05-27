@@ -79,7 +79,7 @@ public class HrController {
             hrRequest = (Request) requestTableView.getSelectionModel().getSelectedItem();
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(Main.class.getResource("refererRequestForm.fxml"));
+                loader.setLocation(Main.class.getResource("hrRequestForm.fxml"));
                 AnchorPane page = (AnchorPane)loader.load();
 
                 Stage dialogStage = new Stage();
@@ -88,7 +88,7 @@ public class HrController {
                 dialogStage.initOwner(Main.rootStage);
                 Scene scene = new Scene(page);
                 dialogStage.setScene(scene);
-                RefererRequestController controller = loader.getController();
+                HrRequestController controller = loader.getController();
                 controller.setDialogStage(dialogStage);
                 dialogStage.showAndWait();
 
