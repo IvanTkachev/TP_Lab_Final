@@ -17,7 +17,7 @@ public class UserDaoImpl extends DAO implements UserDao {
     @Override
     public User getUser(String name, String password) {
         Connection connection = poolInst.getConnection();
-       User user = new User();
+       User user = null;
         try {
             PreparedStatement statement = connection.prepareStatement(sql.
                     getProperty(SqlService.SQL_GET_USER));
@@ -25,11 +25,11 @@ public class UserDaoImpl extends DAO implements UserDao {
             statement.setString(2, password);
             ResultSet userSet = statement.executeQuery();
             while (userSet.next()) {
-                user.setId(userSet.getInt(1));
-                user.setUsername(userSet.getString(2));
-                user.setPassword(userSet.getString(3));
-                user.setRole(new Role(userSet.getInt(4),
-                        userSet.getString(5)));
+                user = new User(userSet.getInt(1),
+                        userSet.getString(2),
+                        userSet.getString(3),
+                        new Role(userSet.getInt(4),
+                                        userSet.getString(5)));
             }
 
             userSet.close();
