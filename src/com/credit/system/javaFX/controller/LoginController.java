@@ -52,16 +52,16 @@ public class LoginController {
                         loader.setLocation(Main.class.getResource("clerkForm.fxml"));
                         break;
                     case "HR":
-                        loader.setRoot(getClass().getResource("mainForm.fxml"));
-                        loader.setLocation(Main.class.getResource("mainForm.fxml"));
+                        loader.setRoot(getClass().getResource("hrForm.fxml"));
+                        loader.setLocation(Main.class.getResource("hrForm.fxml"));
                         break;
                     case "Referer":
                         loader.setRoot(getClass().getResource("refererForm.fxml"));
                         loader.setLocation(Main.class.getResource("refererForm.fxml"));
                         break;
                     case "Servant":
-                        loader.setRoot(getClass().getResource("mainForm.fxml"));
-                        loader.setLocation(Main.class.getResource("mainForm.fxml"));
+                        loader.setRoot(getClass().getResource("servantForm.fxml"));
+                        loader.setLocation(Main.class.getResource("servantForm.fxml"));
                         break;
                     default:
                         loader.setRoot(getClass().getResource("mainForm.fxml"));
