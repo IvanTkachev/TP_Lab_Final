@@ -4,17 +4,20 @@ import com.credit.system.entity.Request;
 import com.credit.system.javaFX.view.Main;
 import com.credit.system.service.RequestService;
 import com.credit.system.service.impl.RequestServiceImpl;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.naming.Context;
@@ -31,6 +34,8 @@ public class RefererController {
     public TableColumn amountColumn;
     private RequestService requestService;
 
+    public static Request refererRequest;
+
     public static ObservableList<Request> requests = FXCollections.observableArrayList();
 
     @FXML
@@ -38,6 +43,7 @@ public class RefererController {
         try {
             Context context = new InitialContext();
             requestService = new RequestServiceImpl();
+            requests.clear();
             requests.addAll(requestService.getCreatedRequests());
 
             idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -58,8 +64,11 @@ public class RefererController {
             loader.setRoot(getClass().getResource("login.fxml"));
             loader.setLocation(Main.class.getResource("login.fxml"));
             Main.rootStage.setScene(new Scene(loader.load(), 700, 500));
-            Main.rootStage.setTitle("Login page");
+            Main.rootStage.setTitle("Login");
             Main.rootStage.show();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Logout!");
+            alert.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,7 +77,25 @@ public class RefererController {
 
     public void showRequestDialog(MouseEvent mouseEvent) {
         if(mouseEvent.getClickCount() == 2){
-            errorMessage("Hello");
+            refererRequest = (Request) requestTableView.getSelectionModel().getSelectedItem();
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(Main.class.getResource("refererRequestForm.fxml"));
+                AnchorPane page = (AnchorPane)loader.load();
+
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Referer analyse");
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                dialogStage.initOwner(Main.rootStage);
+                Scene scene = new Scene(page);
+                dialogStage.setScene(scene);
+                RefererRequestController controller = loader.getController();
+                controller.setDialogStage(dialogStage);
+                dialogStage.showAndWait();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

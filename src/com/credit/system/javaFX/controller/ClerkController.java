@@ -37,7 +37,7 @@ public class ClerkController {
             AnchorPane page = (AnchorPane)loader.load();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Delete product");
+            dialogStage.setTitle("Request page");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(Main.rootStage);
             Scene scene = new Scene(page);
@@ -63,6 +63,9 @@ public class ClerkController {
             Main.rootStage.setScene(new Scene(loader.load(), 700, 500));
             Main.rootStage.setTitle("Login page");
             Main.rootStage.show();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Logout!");
+            alert.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

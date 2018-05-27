@@ -43,7 +43,7 @@ public class RequestController {
             });
 
             clientType.setItems(FXCollections.observableArrayList(
-                    "Legal entity", "Physical person ")
+                    "Legal entity", "Physical person")
             );
             clientType.setValue("Legal entity");
 
