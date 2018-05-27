@@ -28,6 +28,8 @@ public class SqlService {
 
     public static final String SQL_UPDATE_REQUEST_STATUS = "SQL_UPDATE_REQUEST_STATUS";
 
+    public static final String SQL_GET_CREATED_REQUEST = "SQL_GET_CREATED_REQUEST";
+
 
     private SqlService() {
     }

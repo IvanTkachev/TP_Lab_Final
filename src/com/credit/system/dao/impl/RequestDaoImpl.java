@@ -8,10 +8,9 @@ import com.credit.system.entity.User;
 import com.credit.system.entity.UserType;
 import com.credit.system.service.SqlService;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RequestDaoImpl extends DAO implements RequestDao{
     @Override
@@ -68,5 +67,34 @@ public class RequestDaoImpl extends DAO implements RequestDao{
         } finally {
             poolInst.footConnection(connection);
         }
+    }
+
+    @Override
+    public List<Request> findCreatedRequests() {
+        Connection connection = poolInst.getConnection();
+        List<Request> requests = new ArrayList<>();
+        try{
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql.getProperty(SqlService.SQL_GET_CREATED_REQUEST));
+            while (resultSet.next()){
+                Request request = new Request();
+                request.setId(resultSet.getInt(1));
+                request.setName(resultSet.getString(2));
+                request.setAmount(resultSet.getInt(6));
+                if (resultSet.getInt(5) == 0){
+                    request.setType(UserType.PHYSICAL);
+                }else {
+                    request.setType(UserType.LEGAL);
+                }
+                requests.add(request);
+            }
+            resultSet.close();
+            statement.close();
+        }catch (SQLException exc){
+            exc.printStackTrace();
+        }finally {
+            poolInst.footConnection(connection);
+        }
+        return requests;
     }
 }
