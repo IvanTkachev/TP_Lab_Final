@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.credit.system.javaFX.controller.ClerkController">
+   <children>
+      <Button fx:id="newRequestButton" layoutX="389.0" layoutY="311.0" mnemonicParsing="false" onAction="#showRequestDialog" prefHeight="43.0" prefWidth="178.0" text="New Request" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="39.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../resources/images/clerk.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

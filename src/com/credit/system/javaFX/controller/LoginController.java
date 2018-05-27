@@ -5,6 +5,8 @@ import com.credit.system.dao.impl.UserDaoImpl;
 import com.credit.system.entity.User;
 import com.credit.system.javaFX.view.Main;
 import com.credit.system.javaFX.view.MainController;
+import com.credit.system.service.UserService;
+import com.credit.system.service.impl.UserServiceImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,12 +27,12 @@ public class LoginController {
     public TextField usernameFiled;
     public Button loginButton;
     private Stage dialogStage;
-    private UserDao userDao;
+    private UserService userService;
 
     @FXML
     private void initialize() {
         try {
-            userDao = new UserDaoImpl();
+            userService = new UserServiceImpl();
             Context context = new InitialContext();
         }catch (Exception e){
             e.printStackTrace();
@@ -43,14 +45,14 @@ public class LoginController {
 
     public void loginAction(ActionEvent actionEvent) {
         try {
-            User user = userDao.getUser(usernameFiled.getText(), passwordField.getText());
+            User user = userService.getUser(usernameFiled.getText(), passwordField.getText());
             if(user != null){
                 dialogStage.close();
                 FXMLLoader loader = new FXMLLoader();
                 switch (user.getRole().getName()){
                     case "Clerk":
-                        loader.setRoot(getClass().getResource("mainForm.fxml"));
-                        loader.setLocation(Main.class.getResource("mainForm.fxml"));
+                        loader.setRoot(getClass().getResource("clerkForm.fxml"));
+                        loader.setLocation(Main.class.getResource("clerkForm.fxml"));
                         break;
                     case "HR":
                         loader.setRoot(getClass().getResource("mainForm.fxml"));

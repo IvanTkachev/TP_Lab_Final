@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.credit.system.javaFX.controller.RequestController">
+   <children>
+      <Text layoutX="48.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+      <Text fx:id="costText" layoutX="49.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost: 1$" wrappingWidth="139.0" />
+      <Text layoutX="45.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Client type:" wrappingWidth="84.33349609375" />
+      <Button layoutX="400.0" layoutY="297.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="139.0" text="Add request" />
+      <TextField fx:id="nameFiled" layoutX="204.0" layoutY="108.0" prefHeight="31.0" prefWidth="340.0" text="Full name" />
+      <Slider fx:id="costField" blockIncrement="1.0" layoutX="202.0" layoutY="167.0" max="1000.0" min="1.0" prefHeight="31.0" prefWidth="340.0" value="1.0" />
+      <ChoiceBox fx:id="clientType" layoutX="208.0" layoutY="227.0" prefHeight="31.0" prefWidth="327.0" />
+   </children>
+</AnchorPane>
