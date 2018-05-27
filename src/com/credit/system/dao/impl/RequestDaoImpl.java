@@ -98,17 +98,17 @@ public class RequestDaoImpl extends DAO implements RequestDao{
 
     @Override
     public List<Request> findCreatedRequests() {
-        return findRequestsByStatus(1);
+        return findRequestsByStatus(sql.getProperty(SqlService.SQL_GET_CREATED_REQUEST));
     }
 
     @Override
     public List<Request> findStaffedRequests() {
-        return findRequestsByStatus(3);
+        return findRequestsByStatus(sql.getProperty(SqlService.SQL_GET_STAFFED_REQUEST));
     }
 
     @Override
     public List<Request> findConfirmedRequests() {
-        return findRequestsByStatus(4);
+        return findRequestsByStatus(sql.getProperty(SqlService.SQL_GET_CONFIRMED_REQUEST));
     }
 
     @Override
@@ -148,16 +148,15 @@ public class RequestDaoImpl extends DAO implements RequestDao{
 
     @Override
     public List<Request> findAnalyzedRequests() {
-        return findRequestsByStatus(2);
+        return findRequestsByStatus(sql.getProperty(SqlService.SQL_GET_ANALYZED_REQUEST));
     }
 
-    private List<Request> findRequestsByStatus(int status){
+    private List<Request> findRequestsByStatus(String sql){
         Connection connection = poolInst.getConnection();
         List<Request> requests = new ArrayList<>();
         try{
-            PreparedStatement statement = connection.prepareStatement(SqlService.SQL_GET_REQUEST_BY_STATUS);
-            statement.setInt(1, status);
-            ResultSet resultSet = statement.executeQuery();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
                 Request request = new Request();
                 request.setId(resultSet.getInt(1));
