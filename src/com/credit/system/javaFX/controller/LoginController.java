@@ -2,6 +2,7 @@ package com.credit.system.javaFX.controller;
 
 import com.credit.system.dao.UserDao;
 import com.credit.system.dao.impl.UserDaoImpl;
+import com.credit.system.entity.User;
 import com.credit.system.javaFX.view.Main;
 import com.credit.system.javaFX.view.MainController;
 import javafx.event.ActionEvent;
@@ -42,17 +43,38 @@ public class LoginController {
 
     public void loginAction(ActionEvent actionEvent) {
         try {
-            if(userDao.getUser(usernameFiled.getText(), passwordField.getText()) != null){
+            User user = userDao.getUser(usernameFiled.getText(), passwordField.getText());
+            if(user != null){
                 dialogStage.close();
                 FXMLLoader loader = new FXMLLoader();
-                loader.setRoot(getClass().getResource("mainForm.fxml"));
-                loader.setLocation(Main.class.getResource("mainForm.fxml"));
+                switch (user.getRole().getName()){
+                    case "Clerk":
+                        loader.setRoot(getClass().getResource("mainForm.fxml"));
+                        loader.setLocation(Main.class.getResource("mainForm.fxml"));
+                        break;
+                    case "HR":
+                        loader.setRoot(getClass().getResource("mainForm.fxml"));
+                        loader.setLocation(Main.class.getResource("mainForm.fxml"));
+                        break;
+                    case "Referer":
+                        loader.setRoot(getClass().getResource("mainForm.fxml"));
+                        loader.setLocation(Main.class.getResource("mainForm.fxml"));
+                        break;
+                    case "Servant":
+                        loader.setRoot(getClass().getResource("mainForm.fxml"));
+                        loader.setLocation(Main.class.getResource("mainForm.fxml"));
+                        break;
+                    default:
+                        loader.setRoot(getClass().getResource("mainForm.fxml"));
+                        loader.setLocation(Main.class.getResource("mainForm.fxml"));
+                        break;
+                }
                 Main.rootStage.setScene(new Scene(loader.load(), 700, 500));
-                Main.rootStage.setTitle("Hello!");
+                Main.rootStage.setTitle("Hello, " + user.getUsername());
                 Main.rootStage.show();
             }
             else {
-                errorMessage("User not found. Please try again.");
+                errorMessage("Username or password incorrect. Please try again.");
             }
 
         }
@@ -61,7 +83,6 @@ public class LoginController {
         }
 
     }
-
     private void errorMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(message);
