@@ -72,9 +72,20 @@ public class RequestDaoImpl extends DAO implements RequestDao{
             statement.executeUpdate();
             statement.close();
             statement = connection.prepareStatement(sql.getProperty(SqlService.SQL_GET_ATTACHMENT_BY_PATH));
+            statement.setInt(1, request.getId());
             if (request.getAttachments() != null){
                 for (String path : request.getAttachments()){
-                    //statement.setString();
+                    statement.setString(2, path);
+                    ResultSet resultSet = statement.executeQuery();
+                    if (!resultSet.next()){
+                        PreparedStatement preparedStatement =
+                                connection.prepareStatement(sql.getProperty(SqlService.SQL_INSERT_ATTACHMENT));
+                        preparedStatement.setInt(1, request.getId());
+                        preparedStatement.setString(2, path);
+                        preparedStatement.executeUpdate();
+                        preparedStatement.close();
+                    }
+                    resultSet.close();
                 }
             }
             statement.close();
