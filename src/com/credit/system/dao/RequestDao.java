@@ -7,7 +7,7 @@ import java.util.List;
 public interface RequestDao {
     int create(Request request);
 
-    void updateStatus(Request request);
+    void update(Request request);
 
     List<Request> findCreatedRequests();
 

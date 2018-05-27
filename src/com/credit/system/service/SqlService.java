@@ -26,13 +26,15 @@ public class SqlService {
 
     public static final String SQL_GET_REQUEST_ID = "SQL_GET_REQUEST_ID";
 
-    public static final String SQL_UPDATE_REQUEST_STATUS = "SQL_UPDATE_REQUEST_STATUS";
+    public static final String SQL_UPDATE_REQUEST = "SQL_UPDATE_REQUEST";
 
     public static final String SQL_GET_CREATED_REQUEST = "SQL_GET_CREATED_REQUEST";
 
     public static final String SQL_GET_REQUEST_BY_ID = "SQL_GET_REQUEST_BY_ID";
 
     public static final String SQL_GET_ATTACHMENT_BY_REQUEST_ID = "SQL_GET_ATTACHMENT_BY_REQUEST_ID";
+
+    public static final String SQL_GET_ATTACHMENT_BY_PATH = "SQL_GET_ATTACHMENT_BY_PATH";
 
 
     private SqlService() {

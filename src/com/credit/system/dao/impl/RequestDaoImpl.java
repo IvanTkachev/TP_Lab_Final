@@ -54,15 +54,29 @@ public class RequestDaoImpl extends DAO implements RequestDao{
     }
 
     @Override
-    public void updateStatus(Request request) {
+    public void update(Request request) {
         Connection connection = poolInst.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(sql.
-                    getProperty(SqlService.SQL_UPDATE_REQUEST_STATUS));
-            statement.setInt(1, request.getRequestType().getId());
-            statement.setInt(2, request.getId());
+                    getProperty(SqlService.SQL_UPDATE_REQUEST));
+            statement.setString(1, request.getName());
+            if (request.getType() == UserType.PHYSICAL){
+                statement.setInt(2, 0);
+            }
+            else {
+                statement.setInt(2, 1);
+            }
+            statement.setInt(3, request.getAmount());
+            statement.setInt(4, request.getRequestType().getId());
+            statement.setInt(5, request.getId());
             statement.executeUpdate();
-
+            statement.close();
+            statement = connection.prepareStatement(sql.getProperty(SqlService.SQL_GET_ATTACHMENT_BY_PATH));
+            if (request.getAttachments() != null){
+                for (String path : request.getAttachments()){
+                    //statement.setString();
+                }
+            }
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
