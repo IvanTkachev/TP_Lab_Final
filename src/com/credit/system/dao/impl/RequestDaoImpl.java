@@ -24,7 +24,7 @@ public class RequestDaoImpl extends DAO implements RequestDao{
             if (request.getType() == UserType.LEGAL){
                 statement.setInt(2, 1);
             } else {
-                statement.setInt(2, 1);
+                statement.setInt(2, 0);
             }
             statement.setInt(3, request.getAmount());
             statement.executeUpdate();
