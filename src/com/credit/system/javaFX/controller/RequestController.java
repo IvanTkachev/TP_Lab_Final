@@ -7,31 +7,40 @@ import com.credit.system.service.impl.RequestServiceImpl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RequestController {
 
     public Text costText;
+    public ListView attachmentList;
+    public Button attachmentButton;
     private Stage dialogStage;
     public TextField nameFiled;
     public Slider costField;
     public ChoiceBox clientType;
     private RequestService requestService;
 
+    public static ObservableList<String> attachments = FXCollections.observableArrayList();
+
     @FXML
     private void initialize() {
         try {
+
             Context context = new InitialContext();
+            attachmentList.setItems(attachments);
             requestService = new RequestServiceImpl();
             costField.valueProperty().addListener(new ChangeListener<Number>() {
                 @Override
@@ -63,9 +72,11 @@ public class RequestController {
                 result = "LEGAL";
             }
             else result = "PHYSICAL";
+            List<String> attachment = new ArrayList<>(attachments);
             requestService.create(
-                    new Request(0, nameFiled.getText(), UserType.valueOf(result), (int)costField.getValue(), null)
+                    new Request(0, nameFiled.getText(), UserType.valueOf(result), (int)costField.getValue(), attachment)
             );
+            attachments.clear();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Request add to analyse");
             alert.show();
@@ -81,5 +92,23 @@ public class RequestController {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(message);
         alert.show();
+    }
+
+    public void addAttachmentAction(ActionEvent actionEvent) {
+        final FileChooser fileChooser = new FileChooser();
+        configureFileChooser(fileChooser);
+        File file = fileChooser.showOpenDialog(dialogStage);
+        if (file != null) {
+            attachments.add(file.getPath());
+        }
+    }
+    private static void configureFileChooser(final FileChooser fileChooser) {
+        fileChooser.setTitle("View Pictures");
+        fileChooser.setInitialDirectory(
+                new File(System.getProperty("user.home"))
+        );
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text file", "*.txt")
+        );
     }
 }

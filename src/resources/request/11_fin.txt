@@ -1,0 +1,3 @@
+ClerkTest1:
+Financial position - 1311$
+Income - 312$

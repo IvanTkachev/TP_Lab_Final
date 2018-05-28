@@ -7,33 +7,43 @@ import com.credit.system.service.impl.RequestServiceImpl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class HrRequestController {
     public Slider rateField;
     public Text rateText;
+    public ListView attachmentList;
     private RequestService requestService;
     public Text costText;
     public TextField nameFiled;
     public Slider costField;
     public ChoiceBox clientType;
     private Stage dialogStage;
+    public static ObservableList<String> attachments = FXCollections.observableArrayList();
+
+    private Desktop desktop = Desktop.getDesktop();
 
     @FXML
     private void initialize() {
         try {
             Context context = new InitialContext();
             requestService = new RequestServiceImpl();
+
+            attachments.addAll(requestService.getRequestById(HrController.hrRequest.getId()).getAttachments());
+
             if(rateField != null){
                 rateField.valueProperty().addListener(new ChangeListener<Number>() {
                     @Override
@@ -67,7 +77,7 @@ public class HrRequestController {
             costText.setText("Cost: " + (int)costField.getValue() + "$");
             nameFiled.setText(HrController.hrRequest.getName());
 
-
+            attachmentList.setItems(attachments);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -105,4 +115,15 @@ public class HrRequestController {
         alert.setContentText("Request refused!");
         alert.show();
     }
+
+    public void openFileAction(MouseEvent mouseEvent) {
+        if(mouseEvent.getClickCount() == 2){
+            try {
+                desktop.open(new File(attachmentList.getSelectionModel().getSelectedItems().get(0).toString()));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
 }
