@@ -14,7 +14,7 @@
       <TextField fx:id="nameFiled" layoutX="204.0" layoutY="108.0" prefHeight="31.0" prefWidth="340.0" text="Full name" />
       <Slider fx:id="costField" blockIncrement="1.0" layoutX="202.0" layoutY="167.0" max="150000.0" min="1.0" prefHeight="31.0" prefWidth="340.0" value="1.0" />
       <ChoiceBox fx:id="clientType" layoutX="208.0" layoutY="227.0" prefHeight="31.0" prefWidth="327.0" />
-      <ListView fx:id="attachmentList" layoutX="7.0" layoutY="272.0" prefHeight="123.0" prefWidth="228.0" />
+      <ListView fx:id="attachmentList" onMouseClicked="#openFileAction" layoutX="7.0" layoutY="272.0" prefHeight="123.0" prefWidth="228.0" />
       <Button fx:id="attachmentButton" layoutX="241.0" layoutY="297.0" mnemonicParsing="false" onAction="#addAttachmentAction" prefHeight="31.0" prefWidth="139.0" text="Add attachment" />
    </children>
 </AnchorPane>

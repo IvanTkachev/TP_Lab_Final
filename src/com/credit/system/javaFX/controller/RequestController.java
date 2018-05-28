@@ -11,12 +11,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +36,8 @@ public class RequestController {
     public Slider costField;
     public ChoiceBox clientType;
     private RequestService requestService;
+
+    private Desktop desktop = Desktop.getDesktop();
 
     public static ObservableList<String> attachments = FXCollections.observableArrayList();
 
@@ -110,5 +116,15 @@ public class RequestController {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text file", "*.txt")
         );
+    }
+
+    public void openFileAction(MouseEvent mouseEvent) {
+        if(mouseEvent.getClickCount() == 2){
+            try {
+                desktop.open(new File(attachmentList.getSelectionModel().getSelectedItems().get(0).toString()));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }
